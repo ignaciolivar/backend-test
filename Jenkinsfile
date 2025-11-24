@@ -57,20 +57,20 @@ pipeline {
 
                     // ---- Push a Docker Hub ----
                     docker.withRegistry("https://index.docker.io/v1/", "credencial-dh") {
-                        sh 'docker tag backend-node carlosmarind/backend-node:latest'
-                        sh "docker tag backend-node carlosmarind/backend-node:${env.BUILD_NUMBER}"
+                        sh 'docker tag backend-node iolivaresv/backend-node:latest'
+                        sh "docker tag backend-node iolivaresv/backend-node:${env.BUILD_NUMBER}"
 
-                        sh 'docker push carlosmarind/backend-node:latest'
-                        sh "docker push carlosmarind/backend-node:${env.BUILD_NUMBER}"
+                        sh 'docker push iolivaresv/backend-node:latest'
+                        sh "docker push iolivaresv/backend-node:${env.BUILD_NUMBER}"
                     }
 
                     // ---- Push a GitHub Packages ----
                     docker.withRegistry("https://ghcr.io", "credencial-gh") {
-                        sh 'docker tag backend-node ghcr.io/carlosmarind/backend-node:latest'
-                        sh "docker tag backend-node ghcr.io/carlosmarind/backend-node:${env.BUILD_NUMBER}"
+                        sh 'docker tag backend-node ghcr.io/iolivaresv/backend-node:latest'
+                        sh "docker tag backend-node ghcr.io/iolivaresv/backend-node:${env.BUILD_NUMBER}"
 
-                        sh 'docker push ghcr.io/carlosmarind/backend-node:latest'
-                        sh "docker push ghcr.io/carlosmarind/backend-node:${env.BUILD_NUMBER}"
+                        sh 'docker push ghcr.io/iolivaresv/backend-node:latest'
+                        sh "docker push ghcr.io/iolivaresv/backend-node:${env.BUILD_NUMBER}"
                     }
                 }
             }
