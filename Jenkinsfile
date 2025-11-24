@@ -83,8 +83,8 @@ pipeline {
                 }
             }
             steps {
-                withKubeConfig([credentialsId: 'kubeconfig-docker']){
-                     sh "kubectl -n devops set image deployments backend-dp backend=carlosmarind/backend-node:${env.BUILD_NUMBER}"
+                withKubeConfig([credentialsId: '+´']){
+                     sh "kubectl -n devops set image deployments backend-dp backend=iolivares/backend-node:${env.BUILD_NUMBER}"
                 }
             }
         }
