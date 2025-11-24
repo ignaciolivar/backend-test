@@ -84,7 +84,7 @@ pipeline {
             }
             steps {
 
-                withKubeConfig(credentialsId: 'kubeconfig-dev') {
+                withKubeConfig(credentialsId: 'kubeconfig-docker') {
                     sh 'kubectl get pods -A'
                     sh "kubectl -n devops set image deployment backend-dp backend=iolivares/backend-node:${env.BUILD_NUMBER}"
     
