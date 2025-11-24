@@ -1,5 +1,5 @@
 # Etapa para instalar dependencias y generar el build
-FROM node:22 as build
+FROM node:22 AS build
 
 WORKDIR /app
 
