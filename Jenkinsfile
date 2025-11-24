@@ -71,11 +71,23 @@ pipeline {
 //
                     //    sh 'docker push ghcr.io/iolivaresv/backend-node:latest'
                     //    sh "docker push ghcr.io/iolivaresv/backend-node:${env.BUILD_NUMBER}"
-                    }
+                    //}
                 }
             }
         }
-
+        stage('Despliegue continuo') {
+            agent{
+                docker{
+                    image 'alpine/k8s:1.32.2'
+                    reuseNode true
+                }
+            }
+            steps {
+                withKubeConfig([credentialsId: 'kubeconfig-docker']){
+                     sh "kubectl -n devops set image deployments backend-dp backend=carlosmarind/backend-node:${env.BUILD_NUMBER}"
+                }
+            }
+        }
         stage('fin pipeline') {
             steps {
                 echo 'Pipeline finalizado correctamente.'
