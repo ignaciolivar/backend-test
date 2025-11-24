@@ -64,13 +64,13 @@ pipeline {
                         sh "docker push iolivaresv/backend-node:${env.BUILD_NUMBER}"
                     }
 
-                    // ---- Push a GitHub Packages ----
-                    docker.withRegistry("https://ghcr.io", "credencial-gh") {
-                        sh 'docker tag backend-node ghcr.io/iolivaresv/backend-node:latest'
-                        sh "docker tag backend-node ghcr.io/iolivaresv/backend-node:${env.BUILD_NUMBER}"
-
-                        sh 'docker push ghcr.io/iolivaresv/backend-node:latest'
-                        sh "docker push ghcr.io/iolivaresv/backend-node:${env.BUILD_NUMBER}"
+                    //// ---- Push a GitHub Packages ----
+                    //docker.withRegistry("https://ghcr.io", "credencial-gh") {
+                    //    sh 'docker tag backend-node ghcr.io/iolivaresv/backend-node:latest'
+                    //    sh "docker tag backend-node ghcr.io/iolivaresv/backend-node:${env.BUILD_NUMBER}"
+//
+                    //    sh 'docker push ghcr.io/iolivaresv/backend-node:latest'
+                    //    sh "docker push ghcr.io/iolivaresv/backend-node:${env.BUILD_NUMBER}"
                     }
                 }
             }
