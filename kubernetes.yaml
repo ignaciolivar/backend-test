@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: iolivares   # <-- inicial + apellido
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+  namespace: iolivares
+data:
+  USERNAME: "nacho"
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mi-secret
+  namespace: iolivares
+type: Opaque
+data:
+  API_KEY: "12345678qwerty"   
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-dp
+  namespace: iolivares
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+        - name: demo-app
+          image: iolivaresv/backend-node   
+          imagePullPolicy: Always
+          ports: 
+            - containerPort: 8080
+          env:
+            - name: USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: USERNAME
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: API_KEY
+
+---
+
+# ================================
+# 5. Service
+# ================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: iolivares
+spec:
+  selector:
+    app: demo
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP
